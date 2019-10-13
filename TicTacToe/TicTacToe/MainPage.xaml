@@ -4,11 +4,36 @@
              xmlns:local="clr-namespace:TicTacToe"
              x:Class="TicTacToe.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+    <StackLayout Orientation="Vertical" Spacing="0">
+        <StackLayout Orientation="Horizontal" Margin="0, 20">
+            <Label>Current state:</Label>
+            <Label x:Name="StateLabel">Null</Label>
+            <Button x:Name="RestartBtn" Text="Restart" Margin="40,0,0,0"></Button>
+        </StackLayout>
+        <Grid x:Name="GameField" Padding="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button Grid.Column="0" Grid.Row="0"></Button>
+            <Button Grid.Column="0" Grid.Row="1"></Button>
+            <Button Grid.Column="0" Grid.Row="2"></Button>
+            <Button Grid.Column="1" Grid.Row="0"></Button>
+            <Button Grid.Column="1" Grid.Row="1"></Button>
+            <Button Grid.Column="1" Grid.Row="2"></Button>
+            <Button Grid.Column="2" Grid.Row="0"></Button>
+            <Button Grid.Column="2" Grid.Row="1"></Button>
+            <Button Grid.Column="2" Grid.Row="2"></Button>
+        </Grid>
+
+        
+
     </StackLayout>
 
 </ContentPage>
