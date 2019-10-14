@@ -46,7 +46,32 @@ namespace TicTacToe
                 return; // пользователь нажал на заполненную кнопку
             
             curBtn.Text = StateToString(Gamer);
-            Gamer = NextState();
+
+            var state = CheckGameState();
+            System.Diagnostics.Debug.WriteLine(state);
+            if (state == GameState.StillHappening)
+            {
+                Gamer = NextState();
+            }
+            else
+            {
+                ShowWinner(state);
+                Restart();
+            }
+            
+        }
+
+        public void ShowWinner(GameState state)
+        {
+            if (state == GameState.NotWiner)
+                ShowMessage("Ничья", "Побеждатора нет");
+            else if (state == GameState.OWin || state == GameState.XWin)
+                ShowMessage("Победа", "Победил " + (state == GameState.XWin ? "крестик" : "нолик"));
+        }
+
+        public void ShowMessage(string title, string message)
+        {
+            DisplayAlert (title, message, "OK");
         }
 
         public Gamer StringToState(string str)
