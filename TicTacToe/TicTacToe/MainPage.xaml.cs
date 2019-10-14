@@ -163,7 +163,7 @@ namespace TicTacToe
                     }
                 }
 
-                VerticalState = testState(win, prev, HorizontalState);
+                VerticalState = testState(win, prev, VerticalState);
 
             }
 
