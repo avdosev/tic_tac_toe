@@ -25,23 +25,26 @@ namespace TicTacToe
             {
                 for (var j = 0; j < 3; j++)
                 {
-                    var curBtn = new Button();
+                    var curBtn = new Button
+                    {
+                        Text = ""
+                    };
                     _buttons[i, j] = curBtn;
                     this.GameField.Children.Add(_buttons[i,j], i, j);
-                    curBtn.Clicked += (object sender, EventArgs args) =>
-                    {
-                        if (curBtn == null)
-                        {
-                            System.out
-                        }
-                        if (curBtn.Text.Length == 0) 
-                            return; // пользователь нажал на заполненную кнопку
-
-                        curBtn.Text = StateToString(Gamer);
-                        Gamer = NextState();
-                    };
+                    curBtn.Clicked += OnButtonClick;
                 }
             }
+        }
+
+        public void OnButtonClick(object sender, EventArgs args)
+        {
+            var curBtn = (Button) sender;
+
+            if (curBtn.Text.Length != 0) 
+                return; // пользователь нажал на заполненную кнопку
+            
+            curBtn.Text = StateToString(Gamer);
+            Gamer = NextState();
         }
 
         public Gamer StringToState(string str)
