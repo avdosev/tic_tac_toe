@@ -17,6 +17,8 @@ namespace TicTacToe
             InitializeComponent();
             _buttons = new Button[3,3];
             InitField();
+            
+            RestartBtn.Clicked += (sender, args) => Restart();
         }
 
         public void InitField()
