@@ -80,6 +80,27 @@ namespace TicTacToe
              */
             string prev;
             
+            Func<bool, string, GameState, GameState> testState = (bool winend, string str, GameState st) =>
+            {
+                var state = st;
+                if (winend && str.Length != 0)
+                {
+                    switch (StringToState(str))
+                    {
+                        case Gamer.O:
+                            state = GameState.OWin;
+                            break;
+                        case Gamer.X:
+                            state = GameState.XWin;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
+                return state;
+            };
+            
             // горизонтальная проверка
             var HorizontalState = GameState.StillHappening;
             for (var i = 0; i < 3; i++)
@@ -95,20 +116,7 @@ namespace TicTacToe
                     }
                 }
 
-                if (win && prev.Length != 0)
-                {
-                    switch (StringToState(prev))
-                    {
-                        case Gamer.O:
-                            HorizontalState = GameState.OWin;
-                            break;
-                        case Gamer.X:
-                            HorizontalState = GameState.XWin;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
+                HorizontalState = testState(win, prev, HorizontalState);
             }
 
             if (HorizontalState == GameState.XWin || HorizontalState == GameState.OWin) return HorizontalState;
@@ -128,20 +136,8 @@ namespace TicTacToe
                     }
                 }
 
-                if (win && prev.Length != 0)
-                {
-                    switch (StringToState(prev))
-                    {
-                        case Gamer.O:
-                            VerticalState = GameState.OWin;
-                            break;
-                        case Gamer.X:
-                            VerticalState = GameState.XWin;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
+                VerticalState = testState(win, prev, HorizontalState);
+
             }
 
             if (VerticalState == GameState.XWin || VerticalState == GameState.OWin) return VerticalState;
@@ -159,20 +155,8 @@ namespace TicTacToe
                         break;
                     }
                 }
-                if (win && prev.Length != 0)
-                {
-                    switch (StringToState(prev))
-                    {
-                        case Gamer.O:
-                            DiaganalState = GameState.OWin;
-                            break;
-                        case Gamer.X:
-                            DiaganalState = GameState.XWin;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
+
+                DiaganalState = testState(win, prev, DiaganalState);
                 
                 prev = _buttons[0, 2].Text;
                 win = true;
@@ -184,20 +168,8 @@ namespace TicTacToe
                         break;
                     }
                 }
-                if (win && prev.Length != 0)
-                {
-                    switch (StringToState(prev))
-                    {
-                        case Gamer.O:
-                            DiaganalState = GameState.OWin;
-                            break;
-                        case Gamer.X:
-                            DiaganalState = GameState.XWin;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
+
+                DiaganalState = testState(win, prev, DiaganalState);
             }
 
 
