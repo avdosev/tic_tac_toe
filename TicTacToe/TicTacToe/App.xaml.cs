@@ -13,6 +13,10 @@ namespace TicTacToe
             InitializeComponent();
 
             MainPage = new MainPage();
+            
+            
+            MainPage.SetValue(NavigationPage.BarTextColorProperty, Color.Black);
+            MainPage.SetValue(NavigationPage.BarBackgroundColorProperty, Color.White);
         }
 
         protected override void OnStart()

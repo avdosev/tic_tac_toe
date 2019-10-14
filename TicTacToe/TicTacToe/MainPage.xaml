@@ -5,11 +5,17 @@
              x:Class="TicTacToe.MainPage">
 
     <StackLayout Orientation="Vertical" Spacing="0">
-        <StackLayout Orientation="Horizontal" Margin="0, 20">
-            <Label>Current state:</Label>
-            <Label x:Name="StateLabel">Null</Label>
-            <Button x:Name="RestartBtn" Text="Restart" HorizontalOptions="End" VerticalOptions="End"></Button>
-        </StackLayout>
+        <FlexLayout  Margin="0, 20"
+                     JustifyContent="SpaceBetween"
+                     AlignContent="Center"
+                     Padding="20,20,20,20">
+            <StackLayout Orientation="Horizontal"
+                         Padding="20,20,20,20">
+                <Label FontSize="Medium">Current state:</Label>
+                <Label FontSize="Medium" x:Name="StateLabel">Null</Label>
+            </StackLayout>
+            <Button x:Name="RestartBtn" Text="Restart" HorizontalOptions="Start" VerticalOptions="Start"></Button>
+        </FlexLayout>
         <Grid x:Name="GameField" Padding="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -17,9 +23,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="120" />
+                <RowDefinition Height="120" />
+                <RowDefinition Height="120" />
             </Grid.RowDefinitions>
             
         </Grid>

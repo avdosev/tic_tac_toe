@@ -29,7 +29,8 @@ namespace TicTacToe
                 {
                     var curBtn = new Button
                     {
-                        Text = ""
+                        Text = "",
+                        FontSize = 40.5
                     };
                     _buttons[i, j] = curBtn;
                     this.GameField.Children.Add(_buttons[i,j], i, j);
@@ -52,6 +53,7 @@ namespace TicTacToe
             if (state == GameState.StillHappening)
             {
                 Gamer = NextState();
+                this.StateLabel.Text = Gamer == Gamer.X ? "cross" : "null";
             }
             else
             {
