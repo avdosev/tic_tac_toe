@@ -75,11 +75,16 @@ namespace TicTacToe
 
         public GameState CheckGameState()
         {
+            /*
+             * крепись, дальше простыня кода
+             */
+            string prev;
+            
             // горизонтальная проверка
             var HorizontalState = GameState.StillHappening;
             for (var i = 0; i < 3; i++)
             {
-                var prev = _buttons[i, 0].Text;
+                prev = _buttons[i, 0].Text;
                 bool win = true;
                 for (var j = 1; j < 3; j++)
                 {
@@ -105,12 +110,14 @@ namespace TicTacToe
                     }
                 }
             }
-            
+
+            if (HorizontalState == GameState.XWin || HorizontalState == GameState.OWin) return HorizontalState;
+
             // вертикальная проверка
             var VerticalState = GameState.StillHappening;
             for (var j = 0; j < 3; j++)
             {
-                var prev = _buttons[0, j].Text;
+                prev = _buttons[0, j].Text;
                 bool win = true;
                 for (var i = 1; i < 3; i++)
                 {
@@ -136,27 +143,75 @@ namespace TicTacToe
                     }
                 }
             }
-            
+
+            if (VerticalState == GameState.XWin || VerticalState == GameState.OWin) return VerticalState;
+
             // диоганальная проверка
-            /*for (var i = 0; i < 3; i++)
+            var DiaganalState = GameState.StillHappening;
             {
-                _buttons[i, i].Text;
-            }*/
-
-            switch (HorizontalState)
-            {
-                case GameState.XWin:
-                case GameState.OWin:
-                    return HorizontalState;
+                prev = _buttons[0, 0].Text;
+                bool win = true;
+                for (var i = 1; i < 3; i++)
+                {
+                    if (_buttons[i, i].Text != prev)
+                    {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win && prev.Length != 0)
+                {
+                    switch (StringToState(prev))
+                    {
+                        case Gamer.O:
+                            DiaganalState = GameState.OWin;
+                            break;
+                        case Gamer.X:
+                            DiaganalState = GameState.XWin;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                
+                prev = _buttons[0, 2].Text;
+                win = true;
+                for (var i = 1; i < 3; i++)
+                {
+                    if (_buttons[i, 3-i-1].Text != prev)
+                    {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win && prev.Length != 0)
+                {
+                    switch (StringToState(prev))
+                    {
+                        case Gamer.O:
+                            DiaganalState = GameState.OWin;
+                            break;
+                        case Gamer.X:
+                            DiaganalState = GameState.XWin;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
             }
-            switch (VerticalState)
+
+
+            if (DiaganalState == GameState.XWin || DiaganalState == GameState.OWin) return DiaganalState;
+
+            foreach (var button in _buttons)
             {
-                case GameState.XWin:
-                case GameState.OWin:
-                    return VerticalState;
+                if (button.Text.Length == 0)
+                {
+                    return GameState.StillHappening;
+                }
             }
 
-            return GameState.StillHappening;
+            return GameState.NotWiner;
         }
 
         public Gamer NextState()
