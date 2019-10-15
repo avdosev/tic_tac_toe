@@ -11,11 +11,22 @@ namespace TicTacToe
     public partial class MainPage : ContentPage
     {
         private readonly Button[,] _buttons;
-        public Gamer Gamer = Gamer.X;
+        private Gamer _gamer;
+
+        public Gamer Gamer
+        {
+            get => _gamer;
+            set
+            {
+                _gamer = value;
+                this.StateLabel.Text = _gamer == Gamer.X ? "cross" : "null";
+            }
+        }
         public MainPage()
         {
             InitializeComponent();
             _buttons = new Button[3,3];
+            Gamer = Gamer.X;
             InitField();
             
             RestartBtn.Clicked += (sender, args) => Restart();
@@ -53,7 +64,6 @@ namespace TicTacToe
             if (state == GameState.StillHappening)
             {
                 Gamer = NextState();
-                this.StateLabel.Text = Gamer == Gamer.X ? "cross" : "null";
             }
             else
             {
